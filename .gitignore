@@ -5,3 +5,30 @@ tealiumTokenV3.json
 # Asegurarse de que los archivos de ejemplo no sean ignorados
 !tealiumTokenV2_example.json
 !tealiumTokenV3_example.json
+
+
+# Archivos de bytecode de Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Archivos de datos y configuraciones locales
+#*.csv
+#*.json
+#*.sqlite
+#local_settings.py
+
+# Archivos de paquetes y distribución
+dist/
+build/
+*.egg-info/
+
+# Archivos temporales y de respaldo
+*.swp
+*.bak
+*.log
