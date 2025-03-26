@@ -1,0 +1,7 @@
+# Ignorar los archivos específicos
+tealiumTokenV2.json
+tealiumTokenV3.json
+
+# Asegurarse de que los archivos de ejemplo no sean ignorados
+!tealiumTokenV2_example.json
+!tealiumTokenV3_example.json
