@@ -15,6 +15,7 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
+## Tabajar con el requirements.txt
 ### Actualizar el requirements.txt
 ```sh
 pip freeze > requirements.txt
