@@ -25,7 +25,7 @@ def guardar_datos():
             "username": username,
             "account": account,
             "token": jwt
-        }, file, indent=4, sort_keys=True)
+        }, file, indent=4)
 
 def cargar_datos():
     '''
