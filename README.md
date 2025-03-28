@@ -35,3 +35,29 @@ pip install -r requirements.txt
 3. Cambia el "<<EMAIL_DEL_USUARIO_DE_LA_API>>" por el email del usuario al que esta ligado la API KEY
 4. Cambia el "<<TEALIUM_ACCOUNT>>" por la cuenta de Tealium
 5. Guarda el fichero.
+
+## V3
+1. Copia el fichero **tealiumTokenV3_example.json** y pegalo en la misma ruta renombrandolo como **tealiumTokenV3.json**
+2. Cambia el "<<API_KEY_DE_TEALIUM>>" por tu API KEY obtenida desde tealium
+3. Cambia el "<<EMAIL_DEL_USUARIO_DE_LA_API>>" por el email del usuario al que esta ligado la API KEY
+4. Cambia el "<<TEALIUM_ACCOUNT>>" por la cuenta de Tealium
+5. Dejar el "profiles":{} tal cual está
+6. Guarda el fichero.
+
+
+# Incidencas con Tealium
+
+A continuacion se detallan los problemas encontrados con la API de Tealium q estamos esperando a q nos resuelvan.
+
+## V2
+
+### Error 1
+    Al intentar obtener el detalle de una version siempre se obtiene el mensaje de error {'returnCode': 1260, 'message': 'That revision details does not exist'}, confirmado en el tiquet 261008 a la espera de resolución.
+
+## V3
+
+### Error 1
+    Cuando recuperas el detalle de una version la información de que entornos se publicó NO es correcta, confirmado en el tiquet 261008 a la espera de resolución.
+
+### Error 2
+    Cuando se intenta acutalizar una Load Rule siempre da el error {'message': 'Invalid request body'}, actualmente en investigacion tiquet 261324
