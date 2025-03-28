@@ -33,4 +33,5 @@ pip install -r requirements.txt
 1. Copia el fichero **tealiumTokenV2_example.json** y pegalo en la misma ruta renombrandolo como **tealiumTokenV2.json**
 2. Cambia el "<<API_KEY_DE_TEALIUM>>" por tu API KEY obtenida desde tealium
 3. Cambia el "<<EMAIL_DEL_USUARIO_DE_LA_API>>" por el email del usuario al que esta ligado la API KEY
-4. Guarda el fichero.
+4. Cambia el "<<TEALIUM_ACCOUNT>>" por la cuenta de Tealium
+5. Guarda el fichero.

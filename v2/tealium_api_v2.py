@@ -5,37 +5,40 @@ import time
 
 
 # Archivo para guardar los datos del token
-token_file = "tealiumTokenV2.json"
+token_file = "v2/tealiumTokenV2.json"
 max_retries = 1
 
 # Variables globales
 api_key = None
 username = None
+account = None
 jwt = None
 
 
 def guardar_datos():
     '''
-    Guarda los datos de la API Key, el usuario y el token en un archivo JSON.
+    Guarda los datos de la API Key, el usuario, el account de tealium y el token en un archivo JSON.
     '''
     with open(token_file, "w") as file:
         json.dump({
             "api_key": api_key,
             "username": username,
+            "account": account,
             "token": jwt
-        }, file)
+        }, file, indent=4, sort_keys=True)
 
 def cargar_datos():
     '''
     Carga los datos de la API Key, el usuario y el token desde un archivo JSON.
     Los datos cargados se guardan en las variables globales.
     '''
-    global api_key, username, jwt
+    global api_key, username, account, jwt
     if os.path.exists(token_file):
         with open(token_file, "r") as file:
             data = json.load(file)
             api_key = data["api_key"]
             username = data["username"]
+            account = data["account"]
             jwt = data["token"]
 
 def obtener_jwt_y_url_base_tealium():
@@ -59,7 +62,7 @@ def obtener_jwt_y_url_base_tealium():
     except requests.exceptions.RequestException as e:
         print(f"Error al obtener el JWT: {e}")
 
-def obtener_revisiones(account, profile, retries=0):
+def obtener_versiones(profile, retries=0):
     '''
     Obetiene la lista de versiones del perfil
     '''
@@ -68,19 +71,18 @@ def obtener_revisiones(account, profile, retries=0):
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()
-        #print(f"Listado de versiones del perfil: {response.json()}")
-        return response.json()["profiles"]
+        return response.json()
     except requests.exceptions.RequestException as e:
         if response.status_code == 401:  # Unauthorized
             print("Token expirado, obteniendo un nuevo token...")
             if retries < max_retries:
                 time.sleep(1)
                 obtener_jwt_y_url_base_tealium()
-                return obtener_revisiones(account, profile, retries + 1)
+                return obtener_versiones(profile, retries + 1)
         print(f"Error al obtener la lista de perfiles: {e}")
         return []
 
-def obtener_detalle_revision(account, profile, revision, retries=0):
+def obtener_detalle_version(profile, revision, retries=0):
     '''
     Obtiene el detalle de una version.
     
@@ -105,5 +107,19 @@ def obtener_detalle_revision(account, profile, revision, retries=0):
             if retries < max_retries:
                 time.sleep(1)
                 obtener_jwt_y_url_base_tealium()
-                return obtener_detalle_revision(account, profile, retries + 1)
+                return obtener_detalle_version(profile, retries + 1)
         #return None
+    
+
+cargar_datos()
+profile = "manu"
+
+print(f"Cuenta es {account}")
+print(f"Usuario es {username}")
+
+listadoVersiones = obtener_versiones(profile)
+print(listadoVersiones)
+
+if len(listadoVersiones) > 0:
+    version = listadoVersiones[0]
+    obtener_detalle_version(profile, version)
