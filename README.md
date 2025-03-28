@@ -61,3 +61,6 @@ A continuacion se detallan los problemas encontrados con la API de Tealium q est
 
 ### Error 2
     Cuando se intenta acutalizar una Load Rule siempre da el error {'message': 'Invalid request body'}, actualmente en investigacion tiquet 261324
+
+## Otros
+    Esto no es un error en sí pero para dejarlo tambien inventariado ya que lo consultamos y tenemos confirmación de ello, la API no puede hacer acciones a nivel de cuenta p.e: NO es posible obtener el listado de perfiles de una cuenta.
