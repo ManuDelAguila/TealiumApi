@@ -200,7 +200,7 @@ def obtener_detalle_loadRules(profile, retries=0):
         jwt, url_base = obtener_jwt_y_url_base_tealium(profile)
     
     url = f"https://{url_base}/v3/tiq/accounts/{account}/profiles/{profile}?includes=loadRules"
-    print(url)
+    #print(url)
     headers = {"Authorization": f"Bearer {jwt}"}
     try:
         response = requests.get(url, headers=headers)
@@ -235,7 +235,7 @@ def actualizar_load_rule(profile, json_data, tps_value, retries=0):
     if not jwt or not url_base:
         jwt, url_base = obtener_jwt_y_url_base_tealium(profile)
     
-    url = f"https://{url_base}/v3/tiq/accounts/{account}/profiles/{profile}?tps={tps_value}"    
+    url = f"https://{url_base}/v3/tiq/accounts/{account}/profiles/{profile}?tps={tps_value}"
     headers = {
         "Authorization": f"Bearer {jwt}",
         "Content-Type": "application/json"
@@ -243,7 +243,6 @@ def actualizar_load_rule(profile, json_data, tps_value, retries=0):
     try:
         response = requests.patch(url, headers=headers, data=json.dumps(json_data))
         response.raise_for_status()
-        #print(json.dumps(response.json(), indent=4, sort_keys=True))
         return response.json()
     except requests.exceptions.RequestException as e:
         try:
@@ -277,7 +276,7 @@ tps_value = "4"
 #Funcionalidad para obtener el listado de versioines de un perfil y entorno.
 #obtener_versiones_entorno(profile, "2025", "03", "dev")
 
-obtener_detalle_loadRules(profile)
+#obtener_detalle_loadRules(profile)
 listado_page_name = [
     "test:manu",
     "test:manu:2",
@@ -286,7 +285,6 @@ listado_page_name = [
 ]
 joinPaginas = "|".join(listado_page_name)
 json_load_rule = {
-    #"versionTitle": f"Update load rule {rule_id} via API",
     "saveType": "save",
     "notes": f"Update load rule 2 via API tps{tps_value}",
     "operationList": [
@@ -297,16 +295,13 @@ json_load_rule = {
                 "object": "loadRule",
                 "name": "LR - Unificacion pixel FB",
                 "status": "active",
-                #"notes": "",
-                #"startDate": "------------",
-                #"endDate": "------------",
                 "conditions": [
                     [
-                        # {
-                        #     "operator": "defined",
-                        #     "value": "",
-                        #     "variable": "udo.page_name"
-                        # },
+                        {
+                             "operator": "defined",
+                             "value": "",
+                             "variable": "udo.page_name"
+                        },
                         {
                             "operator": "regular_expression",
                             "value": f"^({joinPaginas})$",
