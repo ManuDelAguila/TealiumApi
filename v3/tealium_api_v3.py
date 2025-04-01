@@ -223,7 +223,7 @@ def obtener_detalle_loadRules(profile, retries=0):
         print(f"Error al obtener la lista de versiones: {e}")
         return []
 
-def actualizar_load_rule(profile, json_data, retries=0):
+def actualizar_load_rule(profile, json_data, tps_value, retries=0):
     """
     Actualiza un load rule en Tealium.
 
@@ -235,13 +235,13 @@ def actualizar_load_rule(profile, json_data, retries=0):
     if not jwt or not url_base:
         jwt, url_base = obtener_jwt_y_url_base_tealium(profile)
     
-    url = f"https://{url_base}/v3/tiq/accounts/{account}/profiles/{profile}"    
+    url = f"https://{url_base}/v3/tiq/accounts/{account}/profiles/{profile}?tps={tps_value}"    
     headers = {
         "Authorization": f"Bearer {jwt}",
         "Content-Type": "application/json"
     }
     try:
-        response = requests.patch(url, headers=headers, data=json_data)
+        response = requests.patch(url, headers=headers, data=json.dumps(json_data))
         response.raise_for_status()
         #print(json.dumps(response.json(), indent=4, sort_keys=True))
         return response.json()
@@ -257,7 +257,7 @@ def actualizar_load_rule(profile, json_data, retries=0):
                 time.sleep(1)
                 jwt, url_base = obtener_jwt_y_url_base_tealium(profile)
                 if jwt and url_base:
-                    return actualizar_load_rule(profile, json_data, retries + 1)
+                    return actualizar_load_rule(profile, json_data, tps_value, retries + 1)
         print(f"Error al actualizar la Load Rule: {e}")
         return {}
     
@@ -265,13 +265,14 @@ def actualizar_load_rule(profile, json_data, retries=0):
 #
 #   Llamadas a las funciones
 #
-####
+##
 
 # Cargar los datos desde el archivo
 cargar_datos()
 
 # Definir el perfil que se desea consultar
 profile = "manu"
+tps_value = "4"
 
 #Funcionalidad para obtener el listado de versioines de un perfil y entorno.
 #obtener_versiones_entorno(profile, "2025", "03", "dev")
@@ -281,13 +282,13 @@ listado_page_name = [
     "test:manu",
     "test:manu:2",
     "test:manu:3",
-    "test:manu:4"
+    f"test:manu:{tps_value}",
 ]
 joinPaginas = "|".join(listado_page_name)
 json_load_rule = {
     #"versionTitle": f"Update load rule {rule_id} via API",
     "saveType": "save",
-    "notes": f"Update load rule 2 via API",
+    "notes": f"Update load rule 2 via API tps{tps_value}",
     "operationList": [
         {
             "op": "replace",
@@ -319,4 +320,4 @@ json_load_rule = {
 }
 
 #print(json.dumps(json_load_rule, indent=4, sort_keys=True))
-actualizar_load_rule(profile, json_load_rule)
+actualizar_load_rule(profile, json_load_rule, tps_value)
