@@ -59,8 +59,7 @@ A continuacion se detallan los problemas encontrados con la API de Tealium q est
 ### Error 1
     Cuando recuperas el detalle de una version la información de que entornos se publicó NO es correcta, confirmado en el tiquet 261008 a la espera de resolución.
 
-### Error 2
-    Cuando se intenta acutalizar una Load Rule siempre da el error {'message': 'Invalid request body'}, actualmente en investigacion tiquet 261324
-
 ## Otros
     Esto no es un error en sí pero para dejarlo tambien inventariado ya que lo consultamos y tenemos confirmación de ello, la API no puede hacer acciones a nivel de cuenta p.e: NO es posible obtener el listado de perfiles de una cuenta.
+
+    Falta por aclarar con soporte el uso y valor del parametro tps, tratandolo en tiquet 261324
