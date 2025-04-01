@@ -44,7 +44,14 @@ pip install -r requirements.txt
 5. Dejar el "profiles":{} tal cual está
 6. Guarda el fichero.
 
+# Valor del tps (API versión 3)
 
+Por lo que dice Tealium estan realiando una migracion de datos y hay que enviar el valor del tps en función de que estado de la migración este el perfil, falta ver bien esto si se puede extraer de forma programatica y cuando se ha de enviar ya que no es necesario para listar una load rule pero si para actualizarla.
+
+Actualmente para extraer el valor correcto, te has de logar tu cuenta, cambiar al perfil en cuestión, abrir las herramientas de desarrollador y en la consola escribir lo siguente, el resultado es el valor que se ha de indicar como tps_value (valor esperado entre 1 y 4)
+```JavaScript
+utui.util.getTemplatePhase()
+```
 # Incidencas con Tealium
 
 A continuacion se detallan los problemas encontrados con la API de Tealium q estamos esperando a q nos resuelvan.
