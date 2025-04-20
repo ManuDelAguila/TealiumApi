@@ -271,48 +271,50 @@ cargar_datos()
 
 # Definir el perfil que se desea consultar
 profile = "manu"
-tps_value = "4"
 
-#Funcionalidad para obtener el listado de versioines de un perfil y entorno.
+#### Funcionalidad para obtener el listado de versioines de un perfil y entorno.
 #obtener_versiones_entorno(profile, "2025", "03", "dev")
 
-#obtener_detalle_loadRules(profile)
-listado_page_name = [
-    "test:manu",
-    "test:manu:2",
-    "test:manu:3",
-    f"test:manu:{tps_value}",
-]
-joinPaginas = "|".join(listado_page_name)
-json_load_rule = {
-    "saveType": "save",
-    "notes": f"Update load rule 2 via API tps{tps_value}",
-    "operationList": [
-        {
-            "op": "replace",
-            "path": f"/loadRules/2",
-            "value": {
-                "object": "loadRule",
-                "name": "LR - Unificacion pixel FB",
-                "status": "active",
-                "conditions": [
-                    [
-                        {
-                             "operator": "defined",
-                             "value": "",
-                             "variable": "udo.page_name"
-                        },
-                        {
-                            "operator": "regular_expression",
-                            "value": f"^({joinPaginas})$",
-                            "variable": "udo.page_name"
-                        }
-                    ]
-                ]
-            }
-        }
-    ]
-}
+#### Funcionalidad para obtener el listado de loadrules de un perfil.
+# obtener_detalle_loadRules(profile)
 
-#print(json.dumps(json_load_rule, indent=4, sort_keys=True))
-actualizar_load_rule(profile, json_load_rule, tps_value)
+#### Funcionalidad para actualizar un load rule de un perfil.
+# tps_value = "4"
+# listado_page_name = [
+#     "test:manu",
+#     "test:manu:2",
+#     "test:manu:3",
+#     f"test:manu:{tps_value}",
+# ]
+# joinPaginas = "|".join(listado_page_name)
+# json_load_rule = {
+#     "saveType": "save",
+#     "notes": f"Update load rule 2 via API tps{tps_value}",
+#     "operationList": [
+#         {
+#             "op": "replace",
+#             "path": f"/loadRules/2",
+#             "value": {
+#                 "object": "loadRule",
+#                 "name": "LR - Unificacion pixel FB",
+#                 "status": "active",
+#                 "conditions": [
+#                     [
+#                         {
+#                              "operator": "defined",
+#                              "value": "",
+#                              "variable": "udo.page_name"
+#                         },
+#                         {
+#                             "operator": "regular_expression",
+#                             "value": f"^({joinPaginas})$",
+#                             "variable": "udo.page_name"
+#                         }
+#                     ]
+#                 ]
+#             }
+#         }
+#     ]
+# }
+# #print(json.dumps(json_load_rule, indent=4, sort_keys=True))
+# actualizar_load_rule(profile, json_load_rule, tps_value)
